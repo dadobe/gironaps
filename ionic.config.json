@@ -1,0 +1,7 @@
+{
+  "name": "gironaps",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
