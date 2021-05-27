@@ -1,17 +1,37 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Shop
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<ion-content>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCart()">
+      <div class="cart-length">{{ cartItemCount | async}}</div>
+      <ion-icon name="cart" class="cart-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    
+    <ion-item [routerLink]="['product-detail', p.id]" button *ngFor="let p of products | async">  <!-- [routerLink]="[p.id]"> //check the routing -->
+
+      <ion-thumbnail slot="start">
+        <img [src]="p.itemImage">
+      </ion-thumbnail>
+      <ion-label>
+        {{p.itemName}}
+        <p>{{p.itemPrice | currency: 'EUR'}}</p>
+        <p>category: {{p.itemCategory}}</p>
+        <p>stock: {{p.itemStock}}</p>
+      </ion-label>
+
+    </ion-item>
+  </ion-list>
+
 </ion-content>
+

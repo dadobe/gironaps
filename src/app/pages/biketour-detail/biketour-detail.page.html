@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Bike Tour offers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+   <ion-card no-margin>
+    <ion-img [src]="(biketourDetail | async)?.imageURL"></ion-img>
+    <ion-card-header>
+      <ion-card-title>
+        {{(biketourDetail | async)?.title}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{(biketourDetail | async)?.description}}
+    </ion-card-content>
+  
+  </ion-card>
+
+  <!-- //Fab button -->
+<!--   <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="bottom">
+
+      <ion-fab-button color="primary" (click)="share()">
+        <ion-icon name="share"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button color="danger" (click)="addToFavorites()">
+        <ion-icon name="heart"></ion-icon>
+      </ion-fab-button>
+
+    </ion-fab-list>
+
+  </ion-fab> -->
+
+  <!-- Sen INQUIRY button -->
+  <ion-button (click)="sendInquiry()" color="warning">Send Inquiry</ion-button>
+
+</ion-content>

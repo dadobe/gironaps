@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tourism offers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card no-margin>
+    <ion-img [src]="(tourismDetail | async)?.imageURL"></ion-img>
+    <ion-card-header>
+      <ion-card-title>
+        {{(tourismDetail | async)?.title}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{(tourismDetail | async)?.description}}
+    </ion-card-content>
+
+    <ion-list no-margin>
+
+      <ion-item>
+        <ion-label>Price:</ion-label>
+        <ion-chip color="primary"> {{(tourismDetail | async)?.price | currency: 'EUR'}}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Guide:</ion-label>
+        <ion-chip color="primary"> {{(tourismDetail | async)?.guide }}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Coach:</ion-label>
+        <ion-chip color="primary"> {{(tourismDetail | async)?.coach }}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Distance:</ion-label>
+        <ion-chip color="primary"> {{(tourismDetail | async)?.distance }} KM</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Uneveness:</ion-label>
+        <ion-chip color="primary"> {{(tourismDetail | async)?.unevenness }} mts</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Bycicle rental:</ion-label>
+        <ion-chip color="primary"> {{(tourismDetail | async)?.bycicleRental }}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Availability:</ion-label>
+        <ion-chip color="primary"> {{(tourismDetail | async)?.availability }}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Stages:</ion-label>
+        <ion-chip color="primary"> {{(tourismDetail | async)?.stages }}</ion-chip>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-card-content>
+      <ion-img [src]="(tourismDetail | async)?.routeMap"></ion-img>
+    </ion-card-content>
+    <ion-card-content>
+     Details: {{(tourismDetail | async)?.journey}}
+    </ion-card-content>
+  
+  </ion-card>
+
+  <!-- //Fab button -->
+  <!--  
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="bottom">
+
+      <ion-fab-button color="primary" (click)="share()">
+        <ion-icon name="share"></ion-icon>
+      </ion-fab-button>
+
+     <ion-fab-button color="danger" (click)="addToFavorites()">
+        <ion-icon name="heart"></ion-icon>
+      </ion-fab-button>
+
+    </ion-fab-list>
+
+  </ion-fab>
+
+   -->
+
+  <!-- Sen INQUIRY button -->
+  <ion-button (click)="sendInquiry()" color="warning">Send Inquiry</ion-button>
+
+</ion-content>

@@ -6,5 +6,23 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+
+  constructor(
+
+  ) {
+    this.initializeApp();
+  }
+
+  initializeApp(){
+    this.checkDarkmode();
+  }
+
+  // Method to toggle between DARK and LIGHT mode
+  checkDarkmode(){
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    console.log(prefersDark.matches);
+    if (prefersDark.matches){
+      document.body.classList.toggle('dark');
+    }
+  }
 }

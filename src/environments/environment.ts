@@ -3,7 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig : {
+    apiKey: "AIzaSyCv5DKhUSkDuFkJ3COqOVeL-cleKRqm3J4",
+    authDomain: "gironaprosport-45a9e.firebaseapp.com",
+    databaseURL: "https://gironaprosport-45a9e-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "gironaprosport-45a9e",
+    storageBucket: "gironaprosport-45a9e.appspot.com",
+    messagingSenderId: "671585157138",
+    appId: "1:671585157138:web:b834301b2b255f5a75d8cb",
+    measurementId: "G-QZZR7N38CH"
+  },
+  "stripe_key": "pk_test_51Iuh9hFow9Lr5ZutXI8NV9BgnMsPf1McQwcShLNkzo67spdec78j7xWPCAxLHb579Ahdl1OKK2c70WcOLPbaRXsd00uJTgjpSq"
 };
 
 /*

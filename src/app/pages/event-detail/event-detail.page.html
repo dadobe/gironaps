@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Event offers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card no-margin>
+    <ion-img [src]="(eventDetail | async)?.imageURL"></ion-img>
+    <ion-card-header>
+      <ion-card-title>
+        {{(eventDetail | async)?.title}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Price from {{(eventDetail | async)?.price}} EUR
+    </ion-card-content>
+    <ion-card-content>
+      {{(eventDetail | async)?.description}}
+    </ion-card-content>
+    <ion-card-content>
+      {{(eventDetail | async)?.details}}
+    </ion-card-content>
+    <ion-list no-margin>
+
+      <ion-item>
+        <ion-label>Type: </ion-label>
+        <ion-chip color="primary">{{(eventDetail | async)?.type}}</ion-chip>
+      </ion-item>
+      <ion-item>
+        <ion-label>Difficulty:</ion-label>
+         <ion-chip color="primary">{{(eventDetail | async)?.difficulty}}</ion-chip>
+      </ion-item>
+      <ion-item>
+        <ion-label>Distance:</ion-label>
+         <ion-chip color="primary">{{(eventDetail | async)?.distance}} km</ion-chip>
+      </ion-item>
+      <ion-item>
+        <ion-label>Unevenness:</ion-label>
+         <ion-chip color="primary">{{(eventDetail | async)?.unevenness}} mts</ion-chip>
+      </ion-item>
+      <ion-item>
+        <ion-label>Duration:</ion-label>
+         <ion-chip color="primary">{{(eventDetail | async)?.duration}} days</ion-chip>
+      </ion-item>
+      <ion-item>
+        <ion-label>Guide available: </ion-label>
+        <ion-chip color="primary">{{(eventDetail | async)?.guide}}</ion-chip>
+      </ion-item>
+      <ion-item>
+        <ion-label>Coach available:</ion-label>
+         <ion-chip color="primary">{{(eventDetail | async)?.coach}}</ion-chip>
+      </ion-item>
+      <ion-item>
+        <ion-label>Number of stages:</ion-label>
+        <ion-chip color="primary">{{(eventDetail | async)?.stages}}</ion-chip>
+      </ion-item>
+      <ion-item>
+        <ion-label>Bycicle rental:</ion-label>
+         <ion-chip color="primary">{{(eventDetail | async)?.bycicleRental}}</ion-chip>
+      </ion-item>
+      <ion-item>
+        <ion-label>Availability:</ion-label>
+         <ion-chip color="primary">{{(eventDetail | async)?.availability}}</ion-chip>
+      </ion-item>
+    </ion-list>
+    <ion-card-title>
+      Description
+    </ion-card-title>
+    <ion-card-content>
+      {{(eventDetail | async)?.details}}
+    </ion-card-content>
+    <ion-card-content>
+      {{(eventDetail | async)?.descriptionRoute1}}
+    </ion-card-content>
+    <ion-card-content>
+      Price trail 43K: 199 EUR
+    </ion-card-content>
+    <ion-img [src]="(eventDetail | async)?.imageRoute1"></ion-img>
+    <ion-card-content>
+      {{(eventDetail | async)?.descriptionRoute2}}
+    </ion-card-content>
+    <ion-card-content>
+      Price trail 20K: 175 EUR
+    </ion-card-content>
+    <ion-img [src]="(eventDetail | async)?.imageRoute2"></ion-img>
+    <ion-card-content>
+      {{(eventDetail | async)?.journey}}
+    </ion-card-content>
+  </ion-card>
+
+  <!-- //Fab button -->
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="bottom">
+
+      <ion-fab-button color="primary" (click)="share()">
+        <ion-icon name="share"></ion-icon>
+      </ion-fab-button>
+
+   <!--    <ion-fab-button color="danger" (click)="addToFavorites()">
+        <ion-icon name="heart"></ion-icon>
+      </ion-fab-button> -->
+
+    </ion-fab-list>
+
+  </ion-fab>
+
+  <!-- Sen INQUIRY button -->
+  <ion-button (click)="sendInquiry()" color="warning">Send Inquiry</ion-button>
+
+</ion-content>

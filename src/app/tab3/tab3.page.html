@@ -1,17 +1,54 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="signOut()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
-      Tab 3
+      Profile
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-icon name="moon" slot="start"></ion-icon>
+      <ion-label>Toggle Dark Mode</ion-label>
+      <ion-toggle slot="end" [ngModel]="darkMode" (ionChange)="toogleDarkmode()"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <div class="hero ion-text-center ion-padding-top" *ngIf="user">
+
+    <h2>Hello {{ user.displayName }} !</h2>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="2">
+
+      <ion-avatar *ngIf="user.photoURL; else dummy">
+        <img [src]="user.photoURL" />
+      </ion-avatar>
+      
+      <ng-template #dummy>
+        <ion-avatar>
+          <img [src]="dummyAvatar" />
+        </ion-avatar>
+      </ng-template>
+      </ion-col>
+    </ion-row>
+
+    <p>{{ user.email }}</p>
+
+  </div>
+  <ion-item button (click)="changeAvatar()" detail="false">
+  <ion-icon name="image-outline" slot="start"></ion-icon>
+  Change profile image
+  </ion-item>
+  <ion-item button (click)="signOut()" detail="false">
+  <ion-icon name="log-out-outline" slot="start"></ion-icon>
+  Logout
+  </ion-item>
 </ion-content>
