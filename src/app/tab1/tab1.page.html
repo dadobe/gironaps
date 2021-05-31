@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Activities
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Start of Bike Tours offers -->
+
+  <ion-card-header>
+    <ion-card-title>Bike Tours</ion-card-title>
+  </ion-card-header>
+  <!-- make sure to have created before the biketourList on TAB1.page.ts file -->
+  <ion-card [routerLink]="['biketour-detail', biketour.id]" button *ngFor="let biketour of (biketourList | async)">
+    <ion-img [src]="biketour.imageURL"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>{{biketour.title}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <!-- End of Bike Tours offers -->
+
+  <!-- Start of Tourism offers -->
+
+  <ion-card-header>
+    <ion-card-title>Tourism</ion-card-title>
+  </ion-card-header>
+  <ion-card [routerLink]="['tourism-detail', tourism.id]" button *ngFor="let tourism of (tourismList | async)">
+    <ion-img [src]="tourism.imageURL"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>{{tourism.title}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <!-- End of Tourism offers -->
+
+ <!--  Start of Event offers -->
+
+  <ion-card-header>
+    <ion-card-title>Event</ion-card-title>
+  </ion-card-header>
+  <ion-card [routerLink]="['event-detail', event.id]" button *ngFor="let event of (eventList | async)">
+    <ion-img [src]="event.imageURL"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>{{event.title}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+ <!--  End of Event offers -->
+
+</ion-content>

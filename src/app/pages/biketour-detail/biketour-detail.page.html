@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Bike Tour offers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+   <ion-card no-margin>
+    <ion-img [src]="(biketourDetail | async)?.imageURL"></ion-img>
+    <ion-card-header>
+      <ion-card-title>
+        {{(biketourDetail | async)?.title}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{(biketourDetail | async)?.description}}
+    </ion-card-content>
+
+    <ion-list no-margin>
+     
+      <ion-item>
+        <ion-label>Price:</ion-label>
+        <ion-chip color="primary"> {{(biketourDetail | async)?.price | currency: 'EUR'}}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Guide:</ion-label>
+        <ion-chip color="primary"> {{(biketourDetail | async)?.guide }}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Coach:</ion-label>
+        <ion-chip color="primary"> {{(biketourDetail | async)?.coach }}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Bycicle rental:</ion-label>
+        <ion-chip color="primary"> {{(biketourDetail | async)?.bycicleRental }}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Availability:</ion-label>
+        <ion-chip color="primary"> {{(biketourDetail | async)?.availability }}</ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Tags:</ion-label>
+        <ion-chip color="primary"> {{(biketourDetail | async)?.tags }} </ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Duration:</ion-label>
+        <ion-chip color="primary"> {{(biketourDetail | async)?.duration }} days</ion-chip>
+      </ion-item>
+      
+
+    </ion-list>
+  
+  </ion-card>
+
+  <!-- //Fab button -->
+<!--   <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="bottom">
+
+      <ion-fab-button color="primary" (click)="share()">
+        <ion-icon name="share"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button color="danger" (click)="addToFavorites()">
+        <ion-icon name="heart"></ion-icon>
+      </ion-fab-button>
+
+    </ion-fab-list>
+
+  </ion-fab> -->
+
+  <!-- Sen INQUIRY button -->
+  <ion-button (click)="sendInquiry()" color="warning">Send Inquiry</ion-button>
+
+</ion-content>

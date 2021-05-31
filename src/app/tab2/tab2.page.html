@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Shop
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCart()">
+      <div class="cart-length">{{ cartItemCount | async}}</div>
+      <ion-icon name="cart" class="cart-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    
+    <ion-item [routerLink]="['product-detail', p.id]" button *ngFor="let p of products | async">  <!-- [routerLink]="[p.id]"> //check the routing -->
+
+      <ion-thumbnail slot="start">
+        <img [src]="p.itemImage">
+      </ion-thumbnail>
+      <ion-label>
+        {{p.itemName}}
+        <p>{{p.itemPrice | currency: 'EUR'}}</p>
+        <p>category: {{p.itemCategory}}</p>
+        <p>stock: {{p.itemStock}}</p>
+      </ion-label>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
