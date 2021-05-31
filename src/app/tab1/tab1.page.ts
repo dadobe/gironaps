@@ -14,11 +14,12 @@ export class Tab1Page {
 
   //Property to hold all the data that will be consumed by our service
   biketourList: Observable<Biketours[]>;
-
   tourismList: Observable<Tourism[]>;
-
   eventList: Observable<Event[]>;
 
+  //Search function variables
+  searchActive = false;
+  searchResults = [];
 
   constructor(
     biketourService: BiketourService,
@@ -32,7 +33,5 @@ export class Tab1Page {
     this.eventList = eventService.getAllEvents();
 
   }
-
-  
 
 }

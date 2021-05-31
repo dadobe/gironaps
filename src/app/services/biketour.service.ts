@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Biketours } from '../types';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,8 @@ export class BiketourService {
     return this._httpClient.get<Biketours[]>(API);
 
   }
+
+
 }
 
 //url of api created in HEROKU

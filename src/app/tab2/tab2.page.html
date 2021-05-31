@@ -8,6 +8,20 @@
 
 
 <ion-content>
+
+  <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)" ></ion-searchbar>
+
+  
+  <ion-list lines="none">
+    <ion-item *ngFor="let item of itemList" [routerLink]="['product-detail', item.id]">
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h3>{{ item.itemName }}</h3>
+        </ion-text>
+        <p>{{ item.itemImage }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
   
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openCart()">
@@ -18,7 +32,7 @@
 
   <ion-list>
     
-    <ion-item [routerLink]="['product-detail', p.id]" button *ngFor="let p of products | async">  <!-- [routerLink]="[p.id]"> //check the routing -->
+    <ion-item [routerLink]="['product-detail', p.id]" button *ngFor="let p of products | async">  <!-- //check the routing -->
 
       <ion-thumbnail slot="start">
         <img [src]="p.itemImage">
