@@ -56,7 +56,8 @@ export class BiketourDetailPage implements OnInit {
       body: 'I am interested in getting more information about this biketour detail',
       isHtml: true
     };
-    
+    console.log('email:', email);
     this._emailComposer.open(email);
+    console.log('email:', email);
    }
 }
