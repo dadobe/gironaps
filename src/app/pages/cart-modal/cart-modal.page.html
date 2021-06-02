@@ -45,7 +45,7 @@
         </ion-grid>
       </ion-item>
 
-      <p>---------------------</p>
+      <p>-------------------------------------</p>
 
       <ion-item>
         <ion-grid>
@@ -54,7 +54,7 @@
               Total:
             </ion-col>
             <ion-col size="3" class="ion-text-end">
-              {{ getTotal() | currency:'EUR' }}
+              {{ getTotal() | currency:'EUR':'symbol'}}
             </ion-col>
           </ion-row>
         </ion-grid>

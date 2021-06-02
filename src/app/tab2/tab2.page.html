@@ -21,7 +21,7 @@
         </ion-thumbnail>
         <ion-label>
           {{item.itemName}}
-          <p>{{item.itemPrice | currency: 'EUR'}}</p>
+          <p>{{item.itemPrice | currency: 'EUR' : 'symbol'}}</p>
           <p>category: {{item.itemCategory}}</p>
         </ion-label>
 
