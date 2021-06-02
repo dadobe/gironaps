@@ -9,16 +9,22 @@
 
 <ion-content>
 
-  <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)" ></ion-searchbar>
-
+  <!-- Searchbar -->
   
+  <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)" ></ion-searchbar>
   <ion-list lines="none">
-    <ion-item *ngFor="let item of itemList" [routerLink]="['product-detail', item.id]">
+    <ion-item [routerLink]="['product-detail', item.id]" *ngFor="let item of itemList">
       <ion-label class="ion-text-wrap">
-        <ion-text color="primary">
-          <h3>{{ item.itemName }}</h3>
-        </ion-text>
-        <p>{{ item.itemImage }}</p>
+
+        <ion-thumbnail slot="start">
+          <img [src]="item.itemImage">
+        </ion-thumbnail>
+        <ion-label>
+          {{item.itemName}}
+          <p>{{item.itemPrice | currency: 'EUR'}}</p>
+          <p>category: {{item.itemCategory}}</p>
+        </ion-label>
+
       </ion-label>
     </ion-item>
   </ion-list>
@@ -31,8 +37,8 @@
   </ion-fab>
 
   <ion-list>
-    
-    <ion-item [routerLink]="['product-detail', p.id]" button *ngFor="let p of products | async">  <!-- //check the routing -->
+    <!-- Routes to details page of clicked product -->
+    <ion-item [routerLink]="['product-detail', p.id]" button *ngFor="let p of products | async">
 
       <ion-thumbnail slot="start">
         <img [src]="p.itemImage">
@@ -41,7 +47,6 @@
         {{p.itemName}}
         <p>{{p.itemPrice | currency: 'EUR'}}</p>
         <p>category: {{p.itemCategory}}</p>
-        <p>stock: {{p.itemStock}}</p>
       </ion-label>
 
     </ion-item>

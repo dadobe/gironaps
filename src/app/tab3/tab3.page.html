@@ -8,6 +8,11 @@
     <ion-title>
       Profile
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/tabs/tab2/orders">
+        <ion-icon slot="icon-only" name="document"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -49,6 +54,10 @@
   <ion-icon name="image-outline" slot="start"></ion-icon>
   Change profile image
   </ion-item>
+  <ion-item button (click)="signOut()" detail="false">
+    <ion-icon name="document-text-outline" slot="start"></ion-icon>
+    Orders
+    </ion-item>
   <ion-item button (click)="signOut()" detail="false">
   <ion-icon name="log-out-outline" slot="start"></ion-icon>
   Logout

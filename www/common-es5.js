@@ -93,6 +93,30 @@
     },
 
     /***/
+    "6nsN":
+    /*!******************************************************!*\
+      !*** ./node_modules/firebase/auth/dist/index.esm.js ***!
+      \******************************************************/
+
+    /*! no exports provided */
+
+    /***/
+    function nsN(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony import */
+
+
+      var _firebase_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! @firebase/auth */
+      "t6oF"); //# sourceMappingURL=index.esm.js.map
+
+      /***/
+
+    },
+
+    /***/
     "74mu":
     /*!*************************************************************!*\
       !*** ./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js ***!
@@ -262,18 +286,40 @@
       var _angular_fire_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/fire/storage */
       "Vaw3");
-      /* import { auth } from 'firebase/app';
-      import 'firebase/auth';
-       */
+      /* harmony import */
+
+
+      var _angular_fire_functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @angular/fire/functions */
+      "RgrY");
+      /* harmony import */
+
+
+      var firebase_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! firebase/auth */
+      "6nsN");
+      /* harmony import */
+
+
+      var _firebase_app__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @firebase/app */
+      "zIRd");
+      /* harmony import */
+
+
+      var _firebase_auth__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @firebase/auth */
+      "t6oF"); //import { auth } from 'firebase/app';
 
 
       var ProductService = /*#__PURE__*/function () {
-        function ProductService(_db, _afAuth, _storage) {
+        function ProductService(_db, _afAuth, _storage, _functions) {
           _classCallCheck(this, ProductService);
 
           this._db = _db;
           this._afAuth = _afAuth;
           this._storage = _storage;
+          this._functions = _functions;
         }
 
         _createClass(ProductService, [{
@@ -288,6 +334,23 @@
           value: function getOneProduct(id) {
             return this._db.doc("products/".concat(id)).valueChanges();
           }
+          /*   deleteProduct(id) {
+              this.db.doc(`products/${id}`).delete();
+              this.storage.ref(`products/${id}`).delete().subscribe(res => {});
+            } */
+
+        }, {
+          key: "startPaymentIntent",
+          value: function startPaymentIntent(amount, items) {
+            var callable = this._functions.httpsCallable('startPaymentIntent');
+
+            var obs = callable({
+              userId: _firebase_app__WEBPACK_IMPORTED_MODULE_7__["firebase"].auth().currentUser.uid,
+              amount: amount,
+              items: items
+            });
+            return obs;
+          }
         }]);
 
         return ProductService;
@@ -300,6 +363,8 @@
           type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__["AngularFireAuth"]
         }, {
           type: _angular_fire_storage__WEBPACK_IMPORTED_MODULE_4__["AngularFireStorage"]
+        }, {
+          type: _angular_fire_functions__WEBPACK_IMPORTED_MODULE_5__["AngularFireFunctions"]
         }];
       };
 

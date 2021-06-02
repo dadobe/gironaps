@@ -441,6 +441,17 @@
               });
             }
           }, {
+            path: 'orders',
+            loadChildren: function loadChildren() {
+              return __webpack_require__.e(
+              /*! import() | pages-orders-orders-module */
+              "pages-orders-orders-module").then(__webpack_require__.bind(null,
+              /*! ../pages/orders/orders.module */
+              "Xlj8")).then(function (m) {
+                return m.OrdersPageModule;
+              });
+            }
+          }, {
             path: '',
             redirectTo: 'list',
             pathMatch: 'full'
@@ -476,6 +487,15 @@
           redirectTo: '/tabs/tab1',
           pathMatch: 'full'
         }]
+      }, {
+        path: 'cart-modal',
+        loadChildren: function loadChildren() {
+          return Promise.resolve().then(__webpack_require__.bind(null,
+          /*! ../pages/cart-modal/cart-modal.module */
+          "E8I8")).then(function (m) {
+            return m.CartModalPageModule;
+          });
+        }
       }];
 
       var TabsPageRoutingModule = function TabsPageRoutingModule() {
@@ -711,6 +731,11 @@
 
               return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(uploadPromise);
             }));
+          }
+        }, {
+          key: "getEmail",
+          value: function getEmail() {
+            return _firebase_app__WEBPACK_IMPORTED_MODULE_7__["firebase"].auth().currentUser.email;
           }
         }]);
 

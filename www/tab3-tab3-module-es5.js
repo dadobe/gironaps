@@ -384,7 +384,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -696,7 +696,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -787,7 +787,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -991,7 +991,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -1855,7 +1855,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -2018,7 +2018,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -2271,7 +2271,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -2334,7 +2334,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -2404,7 +2404,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -2504,7 +2504,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -2981,7 +2981,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -3165,7 +3165,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"signOut()\">\n        <ion-icon slot=\"icon-only\" name=\"log-out\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>\n      Profile\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n\n  <ion-list>\n    <ion-item>\n      <ion-icon name=\"moon\" slot=\"start\"></ion-icon>\n      <ion-label>Toggle Dark Mode</ion-label>\n      <ion-toggle slot=\"end\" [ngModel]=\"darkMode\" (ionChange)=\"toogleDarkmode()\"></ion-toggle>\n    </ion-item>\n  </ion-list>\n\n  <div class=\"hero ion-text-center ion-padding-top\" *ngIf=\"user\">\n\n    <h2>Hello {{ user.displayName }} !</h2>\n    <ion-row class=\"ion-justify-content-center\">\n      <ion-col size=\"2\">\n\n      <ion-avatar *ngIf=\"user.photoURL; else dummy\">\n        <img [src]=\"user.photoURL\" />\n      </ion-avatar>\n      \n      <ng-template #dummy>\n        <ion-avatar>\n          <img [src]=\"dummyAvatar\" />\n        </ion-avatar>\n      </ng-template>\n      </ion-col>\n    </ion-row>\n\n    <p>{{ user.email }}</p>\n\n  </div>\n  <ion-item button (click)=\"changeAvatar()\" detail=\"false\">\n  <ion-icon name=\"image-outline\" slot=\"start\"></ion-icon>\n  Change profile image\n  </ion-item>\n  <ion-item button (click)=\"signOut()\" detail=\"false\">\n  <ion-icon name=\"log-out-outline\" slot=\"start\"></ion-icon>\n  Logout\n  </ion-item>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n<!--     <ion-buttons slot=\"end\">\n      <ion-button (click)=\"signOut()\">\n        <ion-icon slot=\"icon-only\" name=\"log-out\"></ion-icon>\n      </ion-button> \n    </ion-buttons> -->\n    <ion-title>\n      Profile\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n\n  <ion-list>\n    <ion-item>\n      <ion-icon name=\"moon\" slot=\"start\"></ion-icon>\n      <ion-label>Toggle Dark Mode</ion-label>\n      <ion-toggle slot=\"end\" [ngModel]=\"darkMode\" (ionChange)=\"toogleDarkmode()\"></ion-toggle>\n    </ion-item>\n  </ion-list>\n\n  <div class=\"hero ion-text-center ion-padding-top\" *ngIf=\"user\">\n\n    <h2>Hello {{ user.displayName }} !</h2>\n    <ion-row class=\"ion-justify-content-center\">\n      \n      <ion-col size=\"2\">\n\n      <ion-avatar *ngIf=\"user.photoURL; else dummy\">\n        <img [src]=\"user.photoURL\" />\n      </ion-avatar>\n      \n      <ng-template #dummy>\n        <ion-avatar>\n          <img [src]=\"dummyAvatar\" />\n        </ion-avatar>\n      </ng-template>\n\n      </ion-col>\n    </ion-row>\n\n    <p>{{ user.email }}</p>\n\n  </div>\n  <ion-item button (click)=\"changeAvatar()\" detail=\"false\">\n  <ion-icon name=\"image-outline\" slot=\"start\"></ion-icon>\n  Change profile image\n  </ion-item>\n  <ion-item button (click)=\"signOut()\" detail=\"false\">\n  <ion-icon name=\"log-out-outline\" slot=\"start\"></ion-icon>\n  Logout\n  </ion-item>\n</ion-content>\n";
       /***/
     },
 
@@ -3307,7 +3307,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -3435,7 +3435,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -3722,7 +3722,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -4824,7 +4824,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -4970,7 +4970,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 
@@ -5047,7 +5047,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "hPXi");
+      "O1h7");
       /* harmony import */
 
 

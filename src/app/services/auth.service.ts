@@ -133,4 +133,8 @@ export class AuthService {
     })
     )
   }
+
+  getEmail(){
+    return firebase.auth().currentUser.email;
+  }
 }

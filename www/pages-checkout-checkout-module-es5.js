@@ -144,36 +144,174 @@
             }); //Stripe Settings, passing the stripe_key which is allocated in the environment file.
 
             this.stripe = Stripe(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].stripe_key);
-            var elements = this.stripe.elements(); //Card element ehich captures the input
+            var elements = this.stripe.elements(); //Card element which captures the input
 
-            this.card = elements.creare('card');
+            this.card = elements.create('card');
             this.card.mount(this.cardElement.nativeElement);
-            this.card.addEventListener('change', function (_ref) {
+            this.card.addEventListener('card changes: ', function (_ref) {
               var error = _ref.error;
               console.log('error:', error);
-              _this.cardErrors = error & error.message;
+              _this.cardErrors = error && error.message;
             });
           }
         }, {
           key: "getTotal",
           value: function getTotal() {
             return this.cart.reduce(function (i, j) {
-              return i + j.price * j.amount;
+              return i + j.itemPrice * j.amount;
             }, 0);
           }
         }, {
           key: "buyNow",
           value: function buyNow() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              return regeneratorRuntime.wrap(function _callee$(_context) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var _this2 = this;
+
+              var stripeData, items, loading;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context.prev = _context.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
+                      stripeData = {
+                        payment_method_data: {
+                          billing_details: {
+                            name: this.dataForm.get('name').value,
+                            address: {
+                              line1: this.dataForm.get('street').value,
+                              city: this.dataForm.get('city').value,
+                              postal_code: this.dataForm.get('zip').value,
+                              country: this.dataForm.get('country').value
+                            },
+                            email: this._authService.getEmail()
+                          }
+                        },
+                        receipt_email: this._authService.getEmail()
+                      }; //mapping to get from our cart all the items with id and amount
+
+                      items = this.cart.map(function (item) {
+                        return {
+                          id: item.id,
+                          amount: item.amount
+                        };
+                      }); //Loading animation after purchase order
+
+                      _context3.next = 4;
+                      return this._loadingCtrl.create();
+
+                    case 4:
+                      loading = _context3.sent;
+                      _context3.next = 7;
+                      return loading.present();
+
+                    case 7:
+                      // the * 100 is to get the right number in stripe
+                      this._productService.startPaymentIntent(this.getTotal() * 100, items).subscribe(function (paymentIntent) {
+                        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                          var secret, _yield$this$stripe$ha, result, err, toast, _toast;
+
+                          return regeneratorRuntime.wrap(function _callee$(_context) {
+                            while (1) {
+                              switch (_context.prev = _context.next) {
+                                case 0:
+                                  console.log('my payment intent: ', paymentIntent);
+                                  secret = paymentIntent.client_secret; // This allows us to send the secret which identifies the payment intent, the credit card info and stripe data
+
+                                  _context.next = 4;
+                                  return this.stripe.handleCardPayment(secret, this.card, stripeData);
+
+                                case 4:
+                                  _yield$this$stripe$ha = _context.sent;
+                                  result = _yield$this$stripe$ha.result;
+                                  err = _yield$this$stripe$ha.err;
+                                  console.log('Result of handleCardPayment; ', result); //error message in case payment could not be Fulfilled, toaster appears for 3 seconds
+
+                                  if (!err) {
+                                    _context.next = 18;
+                                    break;
+                                  }
+
+                                  _context.next = 11;
+                                  return loading.dismiss();
+
+                                case 11:
+                                  _context.next = 13;
+                                  return this._toastCtrl.create({
+                                    message: "Could not process your payment, please try again later",
+                                    duration: 3000
+                                  });
+
+                                case 13:
+                                  toast = _context.sent;
+                                  _context.next = 16;
+                                  return toast.present();
+
+                                case 16:
+                                  _context.next = 26;
+                                  break;
+
+                                case 18:
+                                  _context.next = 20;
+                                  return loading.dismiss();
+
+                                case 20:
+                                  _context.next = 22;
+                                  return this._toastCtrl.create({
+                                    message: "Could not process your payment, please try again later",
+                                    duration: 3000
+                                  });
+
+                                case 22:
+                                  _toast = _context.sent;
+                                  _context.next = 25;
+                                  return _toast.present();
+
+                                case 25:
+                                  this._router.navigateByUrl('/tabs/tab2');
+
+                                case 26:
+                                case "end":
+                                  return _context.stop();
+                              }
+                            }
+                          }, _callee, this);
+                        }));
+                      }, function (err) {
+                        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+                          var toast;
+                          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                            while (1) {
+                              switch (_context2.prev = _context2.next) {
+                                case 0:
+                                  _context2.next = 2;
+                                  return loading.dismiss();
+
+                                case 2:
+                                  _context2.next = 4;
+                                  return this._toastCtrl.create({
+                                    message: "Could not process your payment, please try again later",
+                                    duration: 3000
+                                  });
+
+                                case 4:
+                                  toast = _context2.sent;
+                                  _context2.next = 7;
+                                  return toast.present();
+
+                                case 7:
+                                case "end":
+                                  return _context2.stop();
+                              }
+                            }
+                          }, _callee2, this);
+                        }));
+                      });
+
+                    case 8:
                     case "end":
-                      return _context.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee);
+              }, _callee3, this);
             }));
           }
         }]);
@@ -364,7 +502,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"buyer\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>Checkout</ion-title>\n  </ion-toolbar>\n</ion-header>\n \n<ion-content>\n \n  <form [formGroup]=\"dataForm\" (submit)=\"buyNow()\">\n    <ion-item>\n      <ion-label position=\"stacked\">Name</ion-label>\n      <ion-input formControlName=\"name\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">Street</ion-label>\n      <ion-input formControlName=\"street\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">City</ion-label>\n      <ion-input formControlName=\"city\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">ZIP</ion-label>\n      <ion-input formControlName=\"zip\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">Country</ion-label>\n      <ion-input formControlName=\"country\"></ion-input>\n    </ion-item>\n \n    <div #cardElement></div>\n \n    <div id=\"card-errors\" role=\"alert\">\n      {{ cardErrors}}\n    </div>\n \n    <ion-button expand=\"full\" type=\"submit\" [disabled]=\"!dataForm.valid\">Buy now for €{{ getTotal() }}</ion-button>\n  </form>\n \n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/tabs/tab2\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>Checkout</ion-title>\n  </ion-toolbar>\n</ion-header>\n \n<ion-content>\n \n  <form [formGroup]=\"dataForm\" (submit)=\"buyNow()\">\n    <ion-item>\n      <ion-label position=\"stacked\">Name</ion-label>\n      <ion-input formControlName=\"name\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">Street</ion-label>\n      <ion-input formControlName=\"street\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">City</ion-label>\n      <ion-input formControlName=\"city\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">ZIP</ion-label>\n      <ion-input formControlName=\"zip\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">Country</ion-label>\n      <ion-input formControlName=\"country\"></ion-input>\n    </ion-item>\n \n    <div #cardElement></div>\n \n    <div id=\"card-errors\" role=\"alert\">\n      {{ cardErrors}}\n    </div>\n \n    <ion-button expand=\"full\" type=\"submit\" [disabled]=\"!dataForm.valid\">Purchase order :  {{ getTotal() | currency:'EUR'}}</ion-button>\n  </form>\n \n</ion-content>";
       /***/
     }
   }]);

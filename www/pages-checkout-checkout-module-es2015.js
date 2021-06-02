@@ -70,19 +70,78 @@ let CheckoutPage = class CheckoutPage {
         //Stripe Settings, passing the stripe_key which is allocated in the environment file.
         this.stripe = Stripe(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].stripe_key);
         const elements = this.stripe.elements();
-        //Card element ehich captures the input
-        this.card = elements.creare('card');
+        //Card element which captures the input
+        this.card = elements.create('card');
         this.card.mount(this.cardElement.nativeElement);
-        this.card.addEventListener('change', ({ error }) => {
+        this.card.addEventListener('card changes: ', ({ error }) => {
             console.log('error:', error);
-            this.cardErrors = error & error.message;
+            this.cardErrors = error && error.message;
         });
     }
     getTotal() {
-        return this.cart.reduce((i, j) => i + j.price * j.amount, 0);
+        return this.cart.reduce((i, j) => i + j.itemPrice * j.amount, 0);
     }
     buyNow() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const stripeData = {
+                payment_method_data: {
+                    billing_details: {
+                        name: this.dataForm.get('name').value,
+                        address: {
+                            line1: this.dataForm.get('street').value,
+                            city: this.dataForm.get('city').value,
+                            postal_code: this.dataForm.get('zip').value,
+                            country: this.dataForm.get('country').value
+                        },
+                        email: this._authService.getEmail()
+                    }
+                },
+                receipt_email: this._authService.getEmail()
+            };
+            //mapping to get from our cart all the items with id and amount
+            const items = this.cart.map(item => {
+                return {
+                    id: item.id,
+                    amount: item.amount
+                };
+            });
+            //Loading animation after purchase order
+            const loading = yield this._loadingCtrl.create();
+            yield loading.present();
+            // the * 100 is to get the right number in stripe
+            this._productService.startPaymentIntent(this.getTotal() * 100, items)
+                .subscribe((paymentIntent) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                console.log('my payment intent: ', paymentIntent);
+                const secret = paymentIntent.client_secret;
+                // This allows us to send the secret which identifies the payment intent, the credit card info and stripe data
+                const { result, err } = yield this.stripe.handleCardPayment(secret, this.card, stripeData);
+                console.log('Result of handleCardPayment; ', result);
+                //error message in case payment could not be Fulfilled, toaster appears for 3 seconds
+                if (err) {
+                    yield loading.dismiss();
+                    const toast = yield this._toastCtrl.create({
+                        message: `Could not process your payment, please try again later`,
+                        duration: 3000
+                    });
+                    yield toast.present();
+                }
+                else {
+                    yield loading.dismiss();
+                    const toast = yield this._toastCtrl.create({
+                        message: `Could not process your payment, please try again later`,
+                        duration: 3000
+                    });
+                    yield toast.present();
+                    this._router.navigateByUrl('/tabs/tab2');
+                }
+            }), (err) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                yield loading.dismiss();
+                const toast = yield this._toastCtrl.create({
+                    message: `Could not process your payment, please try again later`,
+                    duration: 3000
+                });
+                yield toast.present();
+            }));
         });
     }
 };
@@ -171,7 +230,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 let CheckoutPageModule = class CheckoutPageModule {
 };
 CheckoutPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
@@ -200,7 +258,7 @@ CheckoutPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"buyer\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>Checkout</ion-title>\n  </ion-toolbar>\n</ion-header>\n \n<ion-content>\n \n  <form [formGroup]=\"dataForm\" (submit)=\"buyNow()\">\n    <ion-item>\n      <ion-label position=\"stacked\">Name</ion-label>\n      <ion-input formControlName=\"name\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">Street</ion-label>\n      <ion-input formControlName=\"street\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">City</ion-label>\n      <ion-input formControlName=\"city\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">ZIP</ion-label>\n      <ion-input formControlName=\"zip\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">Country</ion-label>\n      <ion-input formControlName=\"country\"></ion-input>\n    </ion-item>\n \n    <div #cardElement></div>\n \n    <div id=\"card-errors\" role=\"alert\">\n      {{ cardErrors}}\n    </div>\n \n    <ion-button expand=\"full\" type=\"submit\" [disabled]=\"!dataForm.valid\">Buy now for €{{ getTotal() }}</ion-button>\n  </form>\n \n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/tabs/tab2\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>Checkout</ion-title>\n  </ion-toolbar>\n</ion-header>\n \n<ion-content>\n \n  <form [formGroup]=\"dataForm\" (submit)=\"buyNow()\">\n    <ion-item>\n      <ion-label position=\"stacked\">Name</ion-label>\n      <ion-input formControlName=\"name\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">Street</ion-label>\n      <ion-input formControlName=\"street\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">City</ion-label>\n      <ion-input formControlName=\"city\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">ZIP</ion-label>\n      <ion-input formControlName=\"zip\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">Country</ion-label>\n      <ion-input formControlName=\"country\"></ion-input>\n    </ion-item>\n \n    <div #cardElement></div>\n \n    <div id=\"card-errors\" role=\"alert\">\n      {{ cardErrors}}\n    </div>\n \n    <ion-button expand=\"full\" type=\"submit\" [disabled]=\"!dataForm.valid\">Purchase order :  {{ getTotal() | currency:'EUR'}}</ion-button>\n  </form>\n \n</ion-content>");
 
 /***/ })
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,8 @@ export class CartService {
   private cartItems = new BehaviorSubject([]);
   private cartItemCount = new BehaviorSubject(0);
 
-  constructor() { }
+
+  constructor() {}
 
 getCart() {
   return this.cartItems.asObservable();
@@ -69,5 +71,5 @@ getItemCount(id) {
     }
   }
   return 0;
-}
+  }
 }

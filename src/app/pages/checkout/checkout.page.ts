@@ -26,6 +26,7 @@ export class CheckoutPage implements OnInit {
   card;
   cardErrors;
 
+  //Viewchild in order to use the cardElement in the HTML page of the checkout
   @ViewChild('cardElement', {static: true}) cardElement: ElementRef;
 
   constructor(
@@ -55,11 +56,11 @@ export class CheckoutPage implements OnInit {
     this.stripe = Stripe(environment.stripe_key);
     const elements = this.stripe.elements();
 
-    //Card element ehich captures the input
+    //Card element which captures the input
     this.card = elements.create('card');
     this.card.mount(this.cardElement.nativeElement);
 
-    this.card.addEventListener('change', ({error}) => {
+    this.card.addEventListener('card changes: ', ({error}) => {
       console.log('error:', error);
       this.cardErrors = error && error.message;
     });
@@ -70,8 +71,76 @@ export class CheckoutPage implements OnInit {
     return this.cart.reduce((i, j) => i + j.itemPrice * j.amount, 0);
   }
  
-  async buyNow() {
-   
+  async buyNow(){
+
+    const stripeData = {
+      payment_method_data: {
+        billing_details: {
+          name: this.dataForm.get('name').value,
+          address: {
+            line1: this.dataForm.get('street').value,
+            city: this.dataForm.get('city').value,
+            postal_code: this.dataForm.get('zip').value,
+            country: this.dataForm.get('country').value
+          },
+          email: this._authService.getEmail()
+        }
+      },
+      receipt_email: this._authService.getEmail()
+    };
+
+    //mapping to get from our cart all the items with id and amount
+    const items = this.cart.map(item => {
+      return {
+        id: item.id,
+        amount: item.amount
+      };
+    })
+
+    //Loading animation after purchase order
+    const loading = await this._loadingCtrl.create();
+    await loading.present();
+
+    // the * 100 is to get the right number in stripe
+    this._productService.startPaymentIntent(this.getTotal() * 100,items)
+    .subscribe(async paymentIntent => {
+    console.log('my payment intent: ', paymentIntent);
+    const secret = paymentIntent.client_secret;
+
+    // This allows us to send the secret which identifies the payment intent, the credit card info and stripe data
+    const {result, err} = await this.stripe.handleCardPayment(
+      secret,
+      this.card,
+      stripeData
+    );
+
+    console.log('Result of handleCardPayment; ', result);
+
+    //error message in case payment could not be Fulfilled, toaster appears for 3 seconds
+    if(err){
+      await loading.dismiss();
+      const toast = await this._toastCtrl.create({
+        message: `Could not process your payment, please try again later`,
+        duration: 3000
+      });
+      await toast.present();
+    } else {
+      await loading.dismiss();
+      const toast = await this._toastCtrl.create({
+        message: `Could not process your payment, please try again later`,
+        duration: 3000
+      });
+      await toast.present();
+      this._router.navigateByUrl('/tabs/tab2');
+    }
+    }, async err => {
+      await loading.dismiss();
+      const toast = await this._toastCtrl.create({
+        message: `Could not process your payment, please try again later`,
+        duration: 3000
+      });
+      await toast.present();
+    });
   }
 
 }

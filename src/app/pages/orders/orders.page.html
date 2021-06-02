@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>My orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of payments">
+      <ion-label class="ion-text-wrap">
+        <h2> {{ item.created*1000 | date:'short' }} </h2>
+        <p> {{ item.amount/100 | currency: 'EUR':'symbol' }} </p>
+        <div *ngIf="(item.order | async) as row">
+          <p> {{ row['status'] }} </p>
+          <div *ngFor="let pos of row['items'] ">
+            {{ pos.amount }} x {{ items[pos.id].itemName }}
+          </div>
+        </div>
+      </ion-label>      
+
+      <ion-button slot="end" fill="clear" (click)="openInvoice(item)">
+        <ion-icon slot="icon-only" name="downlaod"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>

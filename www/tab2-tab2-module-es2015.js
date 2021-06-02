@@ -32,6 +32,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_product_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/product.service */ "Gdn9");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
 /* harmony import */ var _pages_cart_modal_cart_modal_page__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pages/cart-modal/cart-modal.page */ "x/JU");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/fire/firestore */ "I/3d");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+
+
 
 
 
@@ -42,16 +46,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let Tab2Page = class Tab2Page {
-    constructor(_auth, _productServive, _cartService, _modalController) {
+    constructor(_auth, _productService, _cartService, _modalController, _afstore) {
         this._auth = _auth;
-        this._productServive = _productServive;
+        this._productService = _productService;
         this._cartService = _cartService;
         this._modalController = _modalController;
+        this._afstore = _afstore;
         this.cartItemCount = this._cartService.getCartItemCount();
+        this.searchActive = false;
+        this.searchResults = [];
     }
     ngOnInit() {
         /* to load all the products on initiating the app */
-        this.products = this._productServive.getAllProducts();
+        this.products = this._productService.getAllProducts();
     }
     openCart() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -62,12 +69,41 @@ let Tab2Page = class Tab2Page {
             modal.present();
         });
     }
+    //Implementation of Search function  in the E-SHOP
+    initializedItems() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const itemList = yield this._afstore.collection('products')
+                .valueChanges()
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["first"])())
+                .toPromise();
+            this.itemListBackup = itemList;
+            return itemList;
+        });
+    }
+    filterList(evt) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            this.itemList = yield this.initializedItems();
+            const searchTerm = evt.srcElement.value;
+            if (!searchTerm) {
+                this.searchActive = false;
+                this.searchResults = [];
+            }
+            this.searchActive = true;
+            this.itemList = this.itemList.filter(currentItem => {
+                if (currentItem.itemName && searchTerm) {
+                    return (currentItem.itemName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+                }
+            });
+            console.log('itemList: ', this.itemList);
+        });
+    }
 };
 Tab2Page.ctorParameters = () => [
     { type: _services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"] },
     { type: _services_product_service__WEBPACK_IMPORTED_MODULE_6__["ProductService"] },
     { type: _services_cart_service__WEBPACK_IMPORTED_MODULE_3__["CartService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ModalController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ModalController"] },
+    { type: _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_9__["AngularFirestore"] }
 ];
 Tab2Page = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
@@ -172,7 +208,7 @@ Tab2PageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      Shop\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n  \n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button (click)=\"openCart()\">\n      <div class=\"cart-length\">{{ cartItemCount | async}}</div>\n      <ion-icon name=\"cart\" class=\"cart-icon\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n\n  <ion-list>\n    \n    <ion-item [routerLink]=\"['product-detail', p.id]\" button *ngFor=\"let p of products | async\">  <!-- [routerLink]=\"[p.id]\"> //check the routing -->\n\n      <ion-thumbnail slot=\"start\">\n        <img [src]=\"p.itemImage\">\n      </ion-thumbnail>\n      <ion-label>\n        {{p.itemName}}\n        <p>{{p.itemPrice | currency: 'EUR'}}</p>\n        <p>category: {{p.itemCategory}}</p>\n        <p>stock: {{p.itemStock}}</p>\n      </ion-label>\n\n    </ion-item>\n  </ion-list>\n\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-title>\n      Shop\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button routerLink=\"/tabs/tab2/orders\">\n        <ion-icon slot=\"icon-only\" name=\"filing\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n\n  <!-- Searchbar -->\n  \n  <ion-searchbar showcancelbutton=\"\" (ionInput)=\"filterList($event)\" ></ion-searchbar>\n  <ion-list lines=\"none\">\n    <ion-item [routerLink]=\"['product-detail', item.id]\" *ngFor=\"let item of itemList\">\n      <ion-label class=\"ion-text-wrap\">\n\n        <ion-thumbnail slot=\"start\">\n          <img [src]=\"item.itemImage\">\n        </ion-thumbnail>\n        <ion-label>\n          {{item.itemName}}\n          <p>{{item.itemPrice | currency: 'EUR'}}</p>\n          <p>category: {{item.itemCategory}}</p>\n        </ion-label>\n\n      </ion-label>\n    </ion-item>\n  </ion-list>\n  \n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button (click)=\"openCart()\">\n      <div class=\"cart-length\">{{ cartItemCount | async}}</div>\n      <ion-icon name=\"cart\" class=\"cart-icon\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n\n  <ion-list>\n    <!-- Routes to details page of clicked product -->\n    <ion-item [routerLink]=\"['product-detail', p.id]\" button *ngFor=\"let p of products | async\">\n\n      <ion-thumbnail slot=\"start\">\n        <img [src]=\"p.itemImage\">\n      </ion-thumbnail>\n      <ion-label>\n        {{p.itemName}}\n        <p>{{p.itemPrice | currency: 'EUR'}}</p>\n        <p>category: {{p.itemCategory}}</p>\n      </ion-label>\n\n    </ion-item>\n  </ion-list>\n\n</ion-content>\n\n");
 
 /***/ })
 

@@ -19,7 +19,6 @@ export class BiketourService {
   getBiketour(biketourID: number): Observable<Biketours>{
     // the <Biketours> after the get method is to ensure to return the correct data types
     return this._httpClient.get<Biketours>(API + "/" + biketourID);
-
   }
 
   //Method to fetch all the available activities
@@ -29,8 +28,6 @@ export class BiketourService {
     return this._httpClient.get<Biketours[]>(API);
 
   }
-
-
 }
 
 //url of api created in HEROKU

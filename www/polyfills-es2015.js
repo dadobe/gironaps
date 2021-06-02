@@ -203,8 +203,8 @@ module.exports = function (it, TAG, STATIC) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/danieldominguez/gironaps/src/polyfills.ts */"hN/g");
-module.exports = __webpack_require__(/*! /Users/danieldominguez/gironaps/node_modules/@angular-devkit/build-angular/src/webpack/jit-polyfills.js */"rZy+");
+__webpack_require__(/*! /Users/danieldominguez/TFG/gironaps/src/polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! /Users/danieldominguez/TFG/gironaps/node_modules/@angular-devkit/build-angular/src/webpack/jit-polyfills.js */"rZy+");
 
 
 /***/ }),

@@ -233,6 +233,10 @@ const routes = [
                         loadChildren: () => Promise.all(/*! import() | pages-checkout-checkout-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-checkout-checkout-module")]).then(__webpack_require__.bind(null, /*! ../pages/checkout/checkout.module */ "Tjht")).then(m => m.CheckoutPageModule)
                     },
                     {
+                        path: 'orders',
+                        loadChildren: () => __webpack_require__.e(/*! import() | pages-orders-orders-module */ "pages-orders-orders-module").then(__webpack_require__.bind(null, /*! ../pages/orders/orders.module */ "Xlj8")).then(m => m.OrdersPageModule)
+                    },
+                    {
                         path: '',
                         redirectTo: 'list',
                         pathMatch: 'full'
@@ -262,6 +266,10 @@ const routes = [
             }
         ]
     },
+    {
+        path: 'cart-modal',
+        loadChildren: () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ../pages/cart-modal/cart-modal.module */ "E8I8")).then(m => m.CartModalPageModule)
+    }
 ];
 let TabsPageRoutingModule = class TabsPageRoutingModule {
 };
@@ -391,6 +399,9 @@ let AuthService = class AuthService {
                 .set({ photoURL }, { merge: true });
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(uploadPromise);
         }));
+    }
+    getEmail() {
+        return _firebase_app__WEBPACK_IMPORTED_MODULE_7__["firebase"].auth().currentUser.email;
     }
 };
 AuthService.ctorParameters = () => [

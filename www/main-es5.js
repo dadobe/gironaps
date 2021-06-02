@@ -31,7 +31,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! /Users/danieldominguez/gironaps/src/main.ts */
+      /*! /Users/danieldominguez/TFG/gironaps/src/main.ts */
       "zUnb");
       /***/
     },
@@ -473,40 +473,47 @@
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _angular_fire_functions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! @angular/fire/functions */
+      "RgrY");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! @angular/common/http */
       "tk/3");
       /* harmony import */
 
 
-      var _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! @ionic-native/email-composer/ngx */
       "aaed");
       /* harmony import */
 
 
-      var _ionic_native_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var _ionic_native_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! @ionic-native/core */
       "C6fG");
       /* harmony import */
 
 
-      var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
       /*! @ionic/storage-angular */
       "jSNZ");
       /* harmony import */
 
 
-      var _pages_cart_modal_cart_modal_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      var _pages_cart_modal_cart_modal_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! ./pages/cart-modal/cart-modal.module */
       "E8I8"); //Imports for AUTHENTICATION (login & register)
       // > npm install firebase @angular/fire
+      //Import needed for the payment with stripe / firebase
       //in this import we connect our app with Firebase
       //Import of HTTPClient module to interact with API
       //Import email composer for INQUIRY EMAILS in details pages
@@ -526,13 +533,16 @@
       AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"], _angular_fire__WEBPACK_IMPORTED_MODULE_7__["AngularFireModule"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].firebaseConfig), _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_8__["AngularFirestoreModule"], _angular_fire_storage__WEBPACK_IMPORTED_MODULE_9__["AngularFireStorageModule"], _angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_10__["AngularFireAuthGuardModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"], _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_15__["IonicStorageModule"].forRoot(), _pages_cart_modal_cart_modal_module__WEBPACK_IMPORTED_MODULE_16__["CartModalPageModule"]],
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"], _angular_fire__WEBPACK_IMPORTED_MODULE_7__["AngularFireModule"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].firebaseConfig), _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_8__["AngularFirestoreModule"], _angular_fire_storage__WEBPACK_IMPORTED_MODULE_9__["AngularFireStorageModule"], _angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_10__["AngularFireAuthGuardModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_16__["IonicStorageModule"].forRoot(), _pages_cart_modal_cart_modal_module__WEBPACK_IMPORTED_MODULE_17__["CartModalPageModule"], _angular_fire_functions__WEBPACK_IMPORTED_MODULE_11__["AngularFireFunctionsModule"]],
         providers: [{
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
         }, {
-          provide: _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_13__["EmailComposer"],
-          useClass: _ionic_native_core__WEBPACK_IMPORTED_MODULE_14__["IonicNativePlugin"]
+          provide: _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_14__["EmailComposer"],
+          useClass: _ionic_native_core__WEBPACK_IMPORTED_MODULE_15__["IonicNativePlugin"]
+        }, {
+          provide: _angular_fire_functions__WEBPACK_IMPORTED_MODULE_11__["REGION"],
+          useValue: 'us-central1'
         }],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
       })], AppModule);
@@ -875,47 +885,41 @@
         }
       }
       /* ,
-      {
-      path: 'login',
-      loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-      canActivate: [CanEnterLoginPageGuard]
-      }
-      */
-      , {
-        path: 'cart-modal',
-        loadChildren: function loadChildren() {
-          return Promise.resolve().then(__webpack_require__.bind(null,
-          /*! ./pages/cart-modal/cart-modal.module */
-          "E8I8")).then(function (m) {
-            return m.CartModalPageModule;
-          });
+        {
+          path: 'login',
+          loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+          canActivate: [CanEnterLoginPageGuard]
         }
-      }
-      /* ,
-      {
-        // Lazy loaded path
-        // not needed anymore as this path is a CHILDPATH in the TABS-ROUTING.MODULE
-        path: 'product-detail',
-        loadChildren: () => import('./pages/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
-      },
-      {
-        // Lazy loaded path
-        // not needed anymore as this path is a CHILDPATH in the TABS-ROUTING.MODULE
-        path: 'biketour-detail',
-        loadChildren: () => import('./pages/biketour-detail/biketour-detail.module').then( m => m.BiketourDetailPage)
-      },
-      {
-        // Lazy loaded path
-        // not needed anymore as this path is a CHILDPATH in the TABS-ROUTING.MODULE
-        path: 'tourism-detail',
-        loadChildren: () => import('./pages/tourism-detail/tourism-detail.module').then( m => m.TourismDetailPageModule)
-      },
-      {
-        // Lazy loaded path
-        // not needed anymore as this path is a CHILDPATH in the TABS-ROUTING.MODULE
-        path: 'event-detail',
-        loadChildren: () => import('./pages/event-detail/event-detail.module').then( m => m.EventDetailPageModule)
-      } */
+        ,
+        {
+          path: 'cart-modal',
+          loadChildren: () => import('./pages/cart-modal/cart-modal.module').then( m => m.CartModalPageModule)
+        }
+        /* ,
+        {
+          // Lazy loaded path
+          // not needed anymore as this path is a CHILDPATH in the TABS-ROUTING.MODULE
+          path: 'product-detail',
+          loadChildren: () => import('./pages/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+        },
+        {
+          // Lazy loaded path
+          // not needed anymore as this path is a CHILDPATH in the TABS-ROUTING.MODULE
+          path: 'biketour-detail',
+          loadChildren: () => import('./pages/biketour-detail/biketour-detail.module').then( m => m.BiketourDetailPage)
+        },
+        {
+          // Lazy loaded path
+          // not needed anymore as this path is a CHILDPATH in the TABS-ROUTING.MODULE
+          path: 'tourism-detail',
+          loadChildren: () => import('./pages/tourism-detail/tourism-detail.module').then( m => m.TourismDetailPageModule)
+        },
+        {
+          // Lazy loaded path
+          // not needed anymore as this path is a CHILDPATH in the TABS-ROUTING.MODULE
+          path: 'event-detail',
+          loadChildren: () => import('./pages/event-detail/event-detail.module').then( m => m.EventDetailPageModule)
+        } */
       ];
 
       var AppRoutingModule = function AppRoutingModule() {
@@ -1038,13 +1042,14 @@
           key: "close",
           value: function close() {
             this._modalController.dismiss();
-          }
+          } //Sends us back to the ESHOP page in Tabs2 after checking out 
+
         }, {
           key: "checkout",
           value: function checkout() {
             this._modalController.dismiss();
 
-            this._router.navigateByUrl('/checkout');
+            this._router.navigateByUrl('/tabs/tab2/checkout');
           }
         }]);
 

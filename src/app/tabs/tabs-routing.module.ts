@@ -72,6 +72,11 @@ const routes: Routes = [
           }
           ,
           {
+            path: 'orders',
+            loadChildren: () => import('../pages/orders/orders.module').then( m => m.OrdersPageModule)
+          }
+          ,
+          {
             path: '',
             redirectTo: 'list',
             pathMatch: 'full'
@@ -92,7 +97,18 @@ const routes: Routes = [
         path: 'tab3',
         canActivate: [AngularFireAuthGuard],
         data: {redirectUnauthorizedToLogin},
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        children:
+        [
+          {
+            path:'',
+            loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+          },
+          {
+            path: 'orders',
+            loadChildren: () => import('../pages/orders/orders.module').then( m => m.OrdersPageModule)
+          }
+
+        ]
       },
       {
         path: '',
@@ -101,18 +117,10 @@ const routes: Routes = [
       }
     ]
   },
-  /*
   {
-    Changing the "tabs/tab1" on redirectTo to "login" we make sure that 
-    the default page visited is the LOGIN screen 
-    path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
-    
     path: 'cart-modal',
     loadChildren: () => import('../pages/cart-modal/cart-modal.module').then( m => m.CartModalPageModule)
   }
-  */
 ];
 
 @NgModule({

@@ -14,6 +14,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 
+//Import needed for the payment with stripe / firebase
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
+
 //in this import we connect our app with Firebase
 import { environment } from 'src/environments/environment';
 
@@ -49,11 +52,13 @@ import { CartModalPageModule } from './pages/cart-modal/cart-modal.module';
     AngularFireAuthGuardModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
-    CartModalPageModule
+    CartModalPageModule,
+    AngularFireFunctionsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: EmailComposer, useClass: IonicNativePlugin}
+    { provide: EmailComposer, useClass: IonicNativePlugin},
+    { provide: REGION, useValue: 'us-central1'}
   ],
   bootstrap: [AppComponent],
 })

@@ -45,6 +45,7 @@ export class CartModalPage implements OnInit {
     this._modalController.dismiss();
   }
 
+  //Sends us back to the ESHOP page in Tabs2 after checking out 
   checkout(){
     this._modalController.dismiss();
     this._router.navigateByUrl('/tabs/tab2/checkout');
