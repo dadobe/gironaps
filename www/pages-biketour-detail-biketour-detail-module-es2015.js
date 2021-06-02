@@ -56,6 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/firestore */ "I/3d");
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/fire/auth */ "UbJi");
 /* harmony import */ var _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/email-composer/ngx */ "aaed");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
 
 
 
@@ -68,13 +69,18 @@ __webpack_require__.r(__webpack_exports__);
 //require('firebase/auth');
 //Import email component
 
+//Import AleertController
+
 let BiketourDetailPage = class BiketourDetailPage {
     constructor(activatedRoute, biketourService, _angularFireStore, _angularFireAuth, 
     //Email composer injection
-    _emailComposer) {
+    _emailComposer, 
+    //AlertController
+    _alertCtrl) {
         this._angularFireStore = _angularFireStore;
         this._angularFireAuth = _angularFireAuth;
         this._emailComposer = _emailComposer;
+        this._alertCtrl = _alertCtrl;
         //we use activatedRoute to GET the specific ID we are looking for (passed as parameter)
         const biketourID = activatedRoute.snapshot.params["biketourID"];
         console.log(biketourID);
@@ -82,6 +88,8 @@ let BiketourDetailPage = class BiketourDetailPage {
     }
     ngOnInit() {
     }
+    //We user the AlertController instead of EmailComposer to show message output to cusotmer
+    //as the emialcomposer does not work in CAPACITOR as well as in CORDOVA
     sendInquiry() {
         this._emailComposer.isAvailable().then((available) => {
             if (available) {
@@ -98,13 +106,26 @@ let BiketourDetailPage = class BiketourDetailPage {
         this._emailComposer.open(email);
         console.log('email:', email);
     }
+    presentAlert() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const alert = yield this._alertCtrl.create({
+                cssClass: 'my-custom-class',
+                header: 'Alert',
+                subHeader: 'Subtitle',
+                message: 'This is an alert message.',
+                buttons: ['OK']
+            });
+            yield alert.present();
+        });
+    }
 };
 BiketourDetailPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"] },
     { type: _services_biketour_service__WEBPACK_IMPORTED_MODULE_3__["BiketourService"] },
     { type: _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"] },
     { type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_7__["AngularFireAuth"] },
-    { type: _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_8__["EmailComposer"] }
+    { type: _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_8__["EmailComposer"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["AlertController"] }
 ];
 BiketourDetailPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
@@ -182,7 +203,7 @@ BiketourDetailPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title>Bike Tour offers</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  \n   <ion-card no-margin>\n    <ion-img [src]=\"(biketourDetail | async)?.imageURL\"></ion-img>\n    <ion-card-header>\n      <ion-card-title>\n        {{(biketourDetail | async)?.title}}\n      </ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      {{(biketourDetail | async)?.description}}\n    </ion-card-content>\n\n    <ion-list no-margin>\n     \n      <ion-item>\n        <ion-label>Price:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.price | currency: 'EUR'}}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Guide:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.guide }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Coach:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.coach }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Bycicle rental:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.bycicleRental }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Availability:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.availability }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Tags:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.tags }} </ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Duration:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.duration }} days</ion-chip>\n      </ion-item>\n      \n\n    </ion-list>\n  \n  </ion-card>\n\n  <!-- //Fab button -->\n<!--   <ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button color=\"secondary\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n\n    <ion-fab-list side=\"bottom\">\n\n      <ion-fab-button color=\"primary\" (click)=\"share()\">\n        <ion-icon name=\"share\"></ion-icon>\n      </ion-fab-button>\n\n      <ion-fab-button color=\"danger\" (click)=\"addToFavorites()\">\n        <ion-icon name=\"heart\"></ion-icon>\n      </ion-fab-button>\n\n    </ion-fab-list>\n\n  </ion-fab> -->\n\n  <!-- Sen INQUIRY button -->\n  <ion-button (click)=\"sendInquiry()\" color=\"warning\" expand=\"block\" type=\"button\">Send Inquiry</ion-button>\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title>Bike Tour offers</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  \n   <ion-card no-margin>\n    <ion-img [src]=\"(biketourDetail | async)?.imageURL\"></ion-img>\n    <ion-card-header>\n      <ion-card-title>\n        {{(biketourDetail | async)?.title}}\n      </ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      {{(biketourDetail | async)?.description}}\n    </ion-card-content>\n\n    <ion-list no-margin>\n     \n      <ion-item>\n        <ion-label>Price:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.price | currency: 'EUR'}}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Guide:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.guide }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Coach:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.coach }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Bycicle rental:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.bycicleRental }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Availability:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.availability }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Tags:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.tags }} </ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Duration:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.duration }} days</ion-chip>\n      </ion-item>\n      \n\n    </ion-list>\n  \n  </ion-card>\n\n  <!-- //Fab button -->\n<!--   <ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button color=\"secondary\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n\n    <ion-fab-list side=\"bottom\">\n\n      <ion-fab-button color=\"primary\" (click)=\"share()\">\n        <ion-icon name=\"share\"></ion-icon>\n      </ion-fab-button>\n\n      <ion-fab-button color=\"danger\" (click)=\"addToFavorites()\">\n        <ion-icon name=\"heart\"></ion-icon>\n      </ion-fab-button>\n\n    </ion-fab-list>\n\n  </ion-fab> -->\n\n  <!-- Send INQUIRY button \n  <ion-button (click)=\"sendInquiry()\" color=\"warning\" expand=\"block\" type=\"button\">Send Inquiry</ion-button>\n  -->\n  <ion-button (click)=\"presentAlert()\" color=\"warning\" expand=\"block\" type=\"button\">Send Inquiry</ion-button>\n  \n\n</ion-content>\n");
 
 /***/ })
 

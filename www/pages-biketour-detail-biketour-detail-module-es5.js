@@ -138,19 +138,28 @@
 
       var _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @ionic-native/email-composer/ngx */
-      "aaed"); //Import FireStore & FireAuth module
+      "aaed");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @ionic/angular */
+      "TEn/"); //Import FireStore & FireAuth module
       //require('firebase/auth');
       //Import email component
+      //Import AleertController
 
 
       var BiketourDetailPage = /*#__PURE__*/function () {
         function BiketourDetailPage(activatedRoute, biketourService, _angularFireStore, _angularFireAuth, //Email composer injection
-        _emailComposer) {
+        _emailComposer, //AlertController
+        _alertCtrl) {
           _classCallCheck(this, BiketourDetailPage);
 
           this._angularFireStore = _angularFireStore;
           this._angularFireAuth = _angularFireAuth;
-          this._emailComposer = _emailComposer; //we use activatedRoute to GET the specific ID we are looking for (passed as parameter)
+          this._emailComposer = _emailComposer;
+          this._alertCtrl = _alertCtrl; //we use activatedRoute to GET the specific ID we are looking for (passed as parameter)
 
           var biketourID = activatedRoute.snapshot.params["biketourID"];
           console.log(biketourID);
@@ -159,7 +168,9 @@
 
         _createClass(BiketourDetailPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {} //We user the AlertController instead of EmailComposer to show message output to cusotmer
+          //as the emialcomposer does not work in CAPACITOR as well as in CORDOVA
+
         }, {
           key: "sendInquiry",
           value: function sendInquiry() {
@@ -180,6 +191,37 @@
 
             console.log('email:', email);
           }
+        }, {
+          key: "presentAlert",
+          value: function presentAlert() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var alert;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this._alertCtrl.create({
+                        cssClass: 'my-custom-class',
+                        header: 'Alert',
+                        subHeader: 'Subtitle',
+                        message: 'This is an alert message.',
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context.sent;
+                      _context.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
         }]);
 
         return BiketourDetailPage;
@@ -196,6 +238,8 @@
           type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_7__["AngularFireAuth"]
         }, {
           type: _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_8__["EmailComposer"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["AlertController"]
         }];
       };
 
@@ -316,7 +360,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title>Bike Tour offers</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  \n   <ion-card no-margin>\n    <ion-img [src]=\"(biketourDetail | async)?.imageURL\"></ion-img>\n    <ion-card-header>\n      <ion-card-title>\n        {{(biketourDetail | async)?.title}}\n      </ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      {{(biketourDetail | async)?.description}}\n    </ion-card-content>\n\n    <ion-list no-margin>\n     \n      <ion-item>\n        <ion-label>Price:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.price | currency: 'EUR'}}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Guide:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.guide }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Coach:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.coach }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Bycicle rental:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.bycicleRental }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Availability:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.availability }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Tags:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.tags }} </ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Duration:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.duration }} days</ion-chip>\n      </ion-item>\n      \n\n    </ion-list>\n  \n  </ion-card>\n\n  <!-- //Fab button -->\n<!--   <ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button color=\"secondary\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n\n    <ion-fab-list side=\"bottom\">\n\n      <ion-fab-button color=\"primary\" (click)=\"share()\">\n        <ion-icon name=\"share\"></ion-icon>\n      </ion-fab-button>\n\n      <ion-fab-button color=\"danger\" (click)=\"addToFavorites()\">\n        <ion-icon name=\"heart\"></ion-icon>\n      </ion-fab-button>\n\n    </ion-fab-list>\n\n  </ion-fab> -->\n\n  <!-- Sen INQUIRY button -->\n  <ion-button (click)=\"sendInquiry()\" color=\"warning\" expand=\"block\" type=\"button\">Send Inquiry</ion-button>\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title>Bike Tour offers</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  \n   <ion-card no-margin>\n    <ion-img [src]=\"(biketourDetail | async)?.imageURL\"></ion-img>\n    <ion-card-header>\n      <ion-card-title>\n        {{(biketourDetail | async)?.title}}\n      </ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      {{(biketourDetail | async)?.description}}\n    </ion-card-content>\n\n    <ion-list no-margin>\n     \n      <ion-item>\n        <ion-label>Price:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.price | currency: 'EUR'}}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Guide:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.guide }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Coach:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.coach }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Bycicle rental:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.bycicleRental }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Availability:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.availability }}</ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Tags:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.tags }} </ion-chip>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Duration:</ion-label>\n        <ion-chip color=\"primary\"> {{(biketourDetail | async)?.duration }} days</ion-chip>\n      </ion-item>\n      \n\n    </ion-list>\n  \n  </ion-card>\n\n  <!-- //Fab button -->\n<!--   <ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button color=\"secondary\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n\n    <ion-fab-list side=\"bottom\">\n\n      <ion-fab-button color=\"primary\" (click)=\"share()\">\n        <ion-icon name=\"share\"></ion-icon>\n      </ion-fab-button>\n\n      <ion-fab-button color=\"danger\" (click)=\"addToFavorites()\">\n        <ion-icon name=\"heart\"></ion-icon>\n      </ion-fab-button>\n\n    </ion-fab-list>\n\n  </ion-fab> -->\n\n  <!-- Send INQUIRY button \n  <ion-button (click)=\"sendInquiry()\" color=\"warning\" expand=\"block\" type=\"button\">Send Inquiry</ion-button>\n  -->\n  <ion-button (click)=\"presentAlert()\" color=\"warning\" expand=\"block\" type=\"button\">Send Inquiry</ion-button>\n  \n\n</ion-content>\n";
       /***/
     }
   }]);

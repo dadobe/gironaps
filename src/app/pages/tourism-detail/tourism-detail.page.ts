@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 import { TourismService } from 'src/app/services/tourism.service';
 import { Tourism } from 'src/app/types';
 
+//Import AlertController
+import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'app-tourism-detail',
   templateUrl: './tourism-detail.page.html',
@@ -20,7 +23,8 @@ export class TourismDetailPage implements OnInit {
     private _emailComposer: EmailComposer,
     tourismService: TourismService,
     activatedRoute: ActivatedRoute,
-    private _angularFireStore: AngularFirestore
+    private _angularFireStore: AngularFirestore,
+    private _alertCtrl: AlertController
     //private _socialShare: SocialSharing
   ) { 
 
@@ -40,5 +44,19 @@ export class TourismDetailPage implements OnInit {
       this._socialShare.share("Look what I found on this app called GPS", tourism.title, "", tourism.imageURL);
     });
   } */
+
+  async presentAlert() {
+    const alert = await this._alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Interested in making tourism in here?',
+      subHeader: 'Tourism',
+      message: 'Please send us an email to gironaps@gmail.com',
+      buttons: ['OK']
+    });
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
 
 }

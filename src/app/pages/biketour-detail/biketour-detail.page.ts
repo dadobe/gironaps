@@ -14,6 +14,9 @@ import firebase from 'firebase/app';
 //Import email component
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
+//Import AlertController
+import { AlertController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-biketour-detail',
@@ -30,7 +33,9 @@ export class BiketourDetailPage implements OnInit {
     private _angularFireStore: AngularFirestore,
     private _angularFireAuth: AngularFireAuth,
     //Email composer injection
-    private _emailComposer: EmailComposer
+    private _emailComposer: EmailComposer,
+    //AlertController
+    private _alertCtrl: AlertController
     ) 
     { 
     //we use activatedRoute to GET the specific ID we are looking for (passed as parameter)
@@ -43,6 +48,8 @@ export class BiketourDetailPage implements OnInit {
   ngOnInit() {
   }
 
+  //We user the AlertController instead of EmailComposer to show message output to cusotmer
+  //as the emialcomposer does not work in CAPACITOR as well as in CORDOVA
   sendInquiry(){
     this._emailComposer.isAvailable().then((available: boolean) => {
       if (available) {
@@ -60,4 +67,18 @@ export class BiketourDetailPage implements OnInit {
     this._emailComposer.open(email);
     console.log('email:', email);
    }
+
+   async presentAlert() {
+    const alert = await this._alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Are you interested in this activity?',
+      subHeader: 'Bike Tours',
+      message: 'Please send us an email to gironaps@gmail.com',
+      buttons: ['OK']
+    });
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
 }

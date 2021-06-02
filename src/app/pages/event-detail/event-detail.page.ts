@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
 import { Event } from 'src/app/types';
 
+//Import AlertController
+import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.page.html',
@@ -19,7 +22,8 @@ export class EventDetailPage implements OnInit {
     eventService: EventService,
     activatedRoute: ActivatedRoute,
     private _emailComposer: EmailComposer,
-    private _angularFireStore: AngularFirestore
+    private _angularFireStore: AngularFirestore,
+    private _alertCtrl: AlertController
 /*     ,
     private _socialShare: SocialSharing */
     ) { 
@@ -44,6 +48,19 @@ export class EventDetailPage implements OnInit {
      })
    }
  
+   async presentAlert() {
+    const alert = await this._alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Interested in this event?',
+      subHeader: 'Events',
+      message: 'Please send us an email to gironaps@gmail.com',
+      buttons: ['OK']
+    });
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
   /*  share(){
      this.eventDetail.subscribe( (event) => {
        this._socialShare.share("Look what I found on this app called GPS", event.title, "", event.imageURL);
