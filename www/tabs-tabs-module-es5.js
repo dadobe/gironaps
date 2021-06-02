@@ -443,9 +443,9 @@
           }, {
             path: 'orders',
             loadChildren: function loadChildren() {
-              return __webpack_require__.e(
+              return Promise.all(
               /*! import() | pages-orders-orders-module */
-              "pages-orders-orders-module").then(__webpack_require__.bind(null,
+              [__webpack_require__.e("common"), __webpack_require__.e("pages-orders-orders-module")]).then(__webpack_require__.bind(null,
               /*! ../pages/orders/orders.module */
               "Xlj8")).then(function (m) {
                 return m.OrdersPageModule;
@@ -473,15 +473,29 @@
           data: {
             redirectUnauthorizedToLogin: redirectUnauthorizedToLogin
           },
-          loadChildren: function loadChildren() {
-            return Promise.all(
-            /*! import() | tab3-tab3-module */
-            [__webpack_require__.e("common"), __webpack_require__.e("tab3-tab3-module")]).then(__webpack_require__.bind(null,
-            /*! ../tab3/tab3.module */
-            "k+ul")).then(function (m) {
-              return m.Tab3PageModule;
-            });
-          }
+          children: [{
+            path: '',
+            loadChildren: function loadChildren() {
+              return Promise.all(
+              /*! import() | tab3-tab3-module */
+              [__webpack_require__.e("common"), __webpack_require__.e("tab3-tab3-module")]).then(__webpack_require__.bind(null,
+              /*! ../tab3/tab3.module */
+              "k+ul")).then(function (m) {
+                return m.Tab3PageModule;
+              });
+            }
+          }, {
+            path: 'orders',
+            loadChildren: function loadChildren() {
+              return Promise.all(
+              /*! import() | pages-orders-orders-module */
+              [__webpack_require__.e("common"), __webpack_require__.e("pages-orders-orders-module")]).then(__webpack_require__.bind(null,
+              /*! ../pages/orders/orders.module */
+              "Xlj8")).then(function (m) {
+                return m.OrdersPageModule;
+              });
+            }
+          }]
         }, {
           path: '',
           redirectTo: '/tabs/tab1',

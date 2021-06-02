@@ -511,7 +511,13 @@
 
       var _pages_cart_modal_cart_modal_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! ./pages/cart-modal/cart-modal.module */
-      "E8I8"); //Imports for AUTHENTICATION (login & register)
+      "E8I8");
+      /* harmony import */
+
+
+      var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
+      /*! @ionic-native/in-app-browser/ngx */
+      "m/P+"); //Imports for AUTHENTICATION (login & register)
       // > npm install firebase @angular/fire
       //Import needed for the payment with stripe / firebase
       //in this import we connect our app with Firebase
@@ -520,6 +526,7 @@
       // 'npm install cordova-plugin-email-composer' & 'npm install @ionic-native/email-composer'
       //Import for DarkMode theme
       //Import for the cart module
+      //Import InAppBrowser needed for openInvoice() function
       //Import social sharing option
       // > 'npm install cordova-plugin-x-socialsharing' & 'npm install @ionic-native/social-sharing'
       // install also related dependecy 'npm install @ionic-native/core'
@@ -543,7 +550,7 @@
         }, {
           provide: _angular_fire_functions__WEBPACK_IMPORTED_MODULE_11__["REGION"],
           useValue: 'us-central1'
-        }],
+        }, _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_18__["InAppBrowser"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
       })], AppModule);
       /***/

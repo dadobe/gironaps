@@ -342,7 +342,8 @@
         }, {
           key: "startPaymentIntent",
           value: function startPaymentIntent(amount, items) {
-            var callable = this._functions.httpsCallable('startPaymentIntent');
+            var callable = this._functions.httpsCallable('startPaymentIntent'); // Calls function startPaymentIntent from Firebase
+
 
             var obs = callable({
               userId: _firebase_app__WEBPACK_IMPORTED_MODULE_7__["firebase"].auth().currentUser.uid,
@@ -350,6 +351,23 @@
               items: items
             });
             return obs;
+          }
+        }, {
+          key: "getCustomerOrders",
+          value: function getCustomerOrders() {
+            var callable = this._functions.httpsCallable('getCustomerOrders'); // Calls function getCustomerOrders from Firebase
+
+
+            var obs = callable({
+              userId: _firebase_app__WEBPACK_IMPORTED_MODULE_7__["firebase"].auth().currentUser.uid
+            });
+            return obs;
+          } //Return form database the document paymentIntentId
+
+        }, {
+          key: "getOrderData",
+          value: function getOrderData(paymentIntentId) {
+            return this._db.doc("orders/".concat(paymentIntentId)).valueChanges();
           }
         }]);
 

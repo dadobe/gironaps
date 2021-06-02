@@ -168,13 +168,22 @@ let ProductService = class ProductService {
         this.storage.ref(`products/${id}`).delete().subscribe(res => {});
       } */
     startPaymentIntent(amount, items) {
-        const callable = this._functions.httpsCallable('startPaymentIntent');
+        const callable = this._functions.httpsCallable('startPaymentIntent'); // Calls function startPaymentIntent from Firebase
         const obs = callable({
             userId: _firebase_app__WEBPACK_IMPORTED_MODULE_7__["firebase"].auth().currentUser.uid,
             amount,
             items
         });
         return obs;
+    }
+    getCustomerOrders() {
+        const callable = this._functions.httpsCallable('getCustomerOrders'); // Calls function getCustomerOrders from Firebase
+        const obs = callable({ userId: _firebase_app__WEBPACK_IMPORTED_MODULE_7__["firebase"].auth().currentUser.uid });
+        return obs;
+    }
+    //Return form database the document paymentIntentId
+    getOrderData(paymentIntentId) {
+        return this._db.doc(`orders/${paymentIntentId}`).valueChanges();
     }
 };
 ProductService.ctorParameters = () => [

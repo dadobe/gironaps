@@ -282,6 +282,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/core */ "C6fG");
 /* harmony import */ var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic/storage-angular */ "jSNZ");
 /* harmony import */ var _pages_cart_modal_cart_modal_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pages/cart-modal/cart-modal.module */ "E8I8");
+/* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "m/P+");
 
 
 
@@ -309,6 +310,8 @@ __webpack_require__.r(__webpack_exports__);
 
 //Import for the cart module
 
+//Import InAppBrowser needed for openInvoice() function
+
 //Import social sharing option
 // > 'npm install cordova-plugin-x-socialsharing' & 'npm install @ionic-native/social-sharing'
 // install also related dependecy 'npm install @ionic-native/core'
@@ -335,7 +338,8 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         providers: [
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
             { provide: _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_14__["EmailComposer"], useClass: _ionic_native_core__WEBPACK_IMPORTED_MODULE_15__["IonicNativePlugin"] },
-            { provide: _angular_fire_functions__WEBPACK_IMPORTED_MODULE_11__["REGION"], useValue: 'us-central1' }
+            { provide: _angular_fire_functions__WEBPACK_IMPORTED_MODULE_11__["REGION"], useValue: 'us-central1' },
+            _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_18__["InAppBrowser"]
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
     })

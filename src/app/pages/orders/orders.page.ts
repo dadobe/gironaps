@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { ProductService } from 'src/app/services/product.service';
 
+//Import InAppBrowser needed for openInvoice() function
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.page.html',
@@ -14,7 +17,8 @@ export class OrdersPage implements OnInit {
   private _iab: any;
 
   constructor(
-    private _productService: ProductService
+    private _productService: ProductService,
+    private _inAppBr: InAppBrowser
   ) { }
 
   ngOnInit() {
@@ -47,11 +51,11 @@ export class OrdersPage implements OnInit {
     });
   }
 
-/*   openInvoice(item){
+  openInvoice(item){
     this._productService.getOrderData(item.id).subscribe( res =>{
       
-      const browser = this._iab.create(res['invoice', '_system'];)
-    })
-  } */
+      const browser = this._inAppBr.create(res['invoice'], '_system');
+    });
+  }
 
 }

@@ -34,6 +34,9 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 //Import for the cart module
 import { CartModalPageModule } from './pages/cart-modal/cart-modal.module';
 
+//Import InAppBrowser needed for openInvoice() function
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 //Import social sharing option
 // > 'npm install cordova-plugin-x-socialsharing' & 'npm install @ionic-native/social-sharing'
 // install also related dependecy 'npm install @ionic-native/core'
@@ -58,7 +61,8 @@ import { CartModalPageModule } from './pages/cart-modal/cart-modal.module';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: EmailComposer, useClass: IonicNativePlugin},
-    { provide: REGION, useValue: 'us-central1'}
+    { provide: REGION, useValue: 'us-central1'},
+    InAppBrowser
   ],
   bootstrap: [AppComponent],
 })

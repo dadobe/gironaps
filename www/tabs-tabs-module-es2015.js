@@ -234,7 +234,7 @@ const routes = [
                     },
                     {
                         path: 'orders',
-                        loadChildren: () => __webpack_require__.e(/*! import() | pages-orders-orders-module */ "pages-orders-orders-module").then(__webpack_require__.bind(null, /*! ../pages/orders/orders.module */ "Xlj8")).then(m => m.OrdersPageModule)
+                        loadChildren: () => Promise.all(/*! import() | pages-orders-orders-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-orders-orders-module")]).then(__webpack_require__.bind(null, /*! ../pages/orders/orders.module */ "Xlj8")).then(m => m.OrdersPageModule)
                     },
                     {
                         path: '',
@@ -257,7 +257,16 @@ const routes = [
                 path: 'tab3',
                 canActivate: [_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_1__["AngularFireAuthGuard"]],
                 data: { redirectUnauthorizedToLogin },
-                loadChildren: () => Promise.all(/*! import() | tab3-tab3-module */[__webpack_require__.e("common"), __webpack_require__.e("tab3-tab3-module")]).then(__webpack_require__.bind(null, /*! ../tab3/tab3.module */ "k+ul")).then(m => m.Tab3PageModule)
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () => Promise.all(/*! import() | tab3-tab3-module */[__webpack_require__.e("common"), __webpack_require__.e("tab3-tab3-module")]).then(__webpack_require__.bind(null, /*! ../tab3/tab3.module */ "k+ul")).then(m => m.Tab3PageModule)
+                    },
+                    {
+                        path: 'orders',
+                        loadChildren: () => Promise.all(/*! import() | pages-orders-orders-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-orders-orders-module")]).then(__webpack_require__.bind(null, /*! ../pages/orders/orders.module */ "Xlj8")).then(m => m.OrdersPageModule)
+                    }
+                ]
             },
             {
                 path: '',
