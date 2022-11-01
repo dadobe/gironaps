@@ -24,7 +24,7 @@
 Hello there! I'm 'dadobe'.
 
 Starting a new journey in WEB DEV. Trying to learn a bit everyday.
-Finally decided to show what I've done as Final Project in my Degree, a crossplatform application programmes in Ionic (Angular).
+Finally decided to show what I've done as Final Project in my Degree, a crossplatform application programmed in Ionic (Angular).
 
 <!-- OVERVIEW -->
 
