@@ -23,9 +23,8 @@
 
 Hello there! I'm 'dadobe'.
 
-Starting a new journey in WEB DEV. Trying to learn a bit everyday. Finally decided to put in practice what I've learned in the past months.
-
-This is a simple example of a CREW MEMBER page that works RESPONSIVELY.
+Starting a new journey in WEB DEV. Trying to learn a bit everyday.
+Finally decided to show what I've done as Final Project in my Degree, a crossplatform application programmes in Ionic (Angular).
 
 <!-- OVERVIEW -->
 
