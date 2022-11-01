@@ -32,8 +32,6 @@ This is a simple example of a CREW MEMBER page that works RESPONSIVELY.
 
 ## Overview
 
-![screenshot](https://github.com/dadobe/devchallenges-my-team-page-master/blob/main/my-team-members.png)
-
 
 ### Built With
 
